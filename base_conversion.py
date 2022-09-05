@@ -1,88 +1,85 @@
-#Importing all needed modules and libraries
-import PySimpleGUI as pg
-
-#Program definition of functions for conversion: 
+# Importar todas las librerías necesarias para el ejercicio:
+from Definiciones import *
 
 
-def dec2bin(val):
-    return "{0:b}".format(int(val)) #Funciona correctamente
+# Building the Python program GUI for base conversion
+PyGui.theme ( "DarkAmber" )
+layout = [ [ PyGui.Text ( "Elija la base que desea convertir: " ) ,
+             PyGui.Combo ( [ "Decimal" , "Hexadecimal" , "Binario", "Octal" ] , key = "input" ) ] ,
+           [ PyGui.Text ( "Elija la base de salida: " ) ,
+             PyGui.Combo ( [ "Decimal" , "Hexadecimal" , "Binario", "Octal" ] , key = "output" ) ] ,
+           [ PyGui.Text ( "Digite el número: " ) ,
+             PyGui.InputText ( do_not_clear = False , key = "sc" ) ] ,
+           [ PyGui.Text ( "Resultado de la conversión:" ) , PyGui.Text ( key = "result" ) ] ,
+           [ PyGui.Text ( "El número ingresado fue: " ) , PyGui.Text ( key = "#inp" ) ] ,
+           [ PyGui.Button ( "Convertir" ) , PyGui.Button ( "Limpiar" ) , PyGui.Button ( "Cerrar" ) ] ,
+           [ PyGui.Output ( size = ( 50 , 10 ) ) ] ]
 
-def dec2hex(val):
-    n=int(val, 10);
-    hex = format(n,'x');
-    return(hex.upper())
+# sc = Sin convertir
 
-def bin2dec(val):
-    return int(val, 2);
+window = PyGui.Window ( "Programa de conversión de datos" , layout )
 
-def hex2dec(val):
-    return int(val, 16);
-
-def bin2hex(val):
-    n = int(val, 2)
-    hex = format(n, 'x')
-    return(hex.upper())
-
-def hex2bin(val):
-    conversion = bin(int(val, 16)).zfill(8)
-    return(conversion)
-
-
-
-#Building the Python program GUI for base_conversion
-pg.theme("DarkAmber")
-layout = [[pg.Text("Elija la base que desea convertir: "),
-         pg.Combo(["Decimal", "Hexadecimal", "Binario"], key="input")],
-         [pg.Text("Elija la base de salida: "),
-         pg.Combo(["Decimal", "Hexadecimal", "Binario"], key="output")], 
-         [pg.Text("Digite el número: "),
-         pg.InputText(do_not_clear=False, key="sc")],
-         [pg.Text("Resultado de la conversión:"), pg.Text(key="result")],
-         [pg.Text("El número ingresado fue: "), pg.Text(key="#inp")],
-         [pg.Button("Convertir"), pg.Button("Limpiar"), pg.Button("Cerrar")]]
-#sc = Sin convertir
-window = pg.Window("Demo", layout)
-
-#Program execution:
-while True: 
-    event, values = window.read()
-    print(values)
-    if event == pg.WIN_CLOSED or event=="Cerrar":
+# Program execution:
+while True :
+    event , values = window.read ( )
+    print ( values )
+    if event == PyGui.WIN_CLOSED or event == "Cerrar" :
         break
-    elif event == "Convertir":
-        if values["input"] == "Decimal":
-            if values["output"] == "Binario":
-                window["result"].update(dec2bin(values["sc"]));
-                window["#inp"].update(values["sc"]);
-            if values["output"] == "Hexadecimal":
-                window["result"].update(dec2hex(values["sc"]));
-                window["#inp"].update(values["sc"]);
-            if values["output"] == "Decimal":
-                window["result"].update(values["sc"]);
-                window["#inp"].update(values["sc"]);
-        if values["input"] == "Binario":
-             if values["output"] == "Decimal":
-                window["result"].update(bin2dec(values["sc"]));
-                window["#inp"].update(values["sc"]);
-             if values["output"] == "Hexadecimal":
-                window["result"].update(bin2hex(values["sc"]));
-                window["#inp"].update(values["sc"]);
-             if values["output"] == "Binario":
-                window["result"].update(values["sc"]);
-                window["#inp"].update(values["sc"]);
-        if values["input"] == "Hexadecimal":
-             if values["output"] == "Decimal":
-                window["result"].update(hex2dec(values["sc"]));
-                window["#inp"].update(values["sc"]);
-             if values["output"] == "Binario":
-                window["result"].update(hex2bin(values["sc"]));
-                window["#inp"].update(values["sc"]);
-             if values["output"] == "Hexadecimal":
-                window["result"].update(values["sc"]);
-                window["#inp"].update(values["sc"]);
-    elif event == "Limpiar":
-        window["result"].update("")
-        window["#inp"].update("")
+    elif event == "Convertir" :
+        if values [ "input" ] == "Decimal" :
+            if values [ "output" ] == "Binario" :
+                window [ "result" ].update ( dec2bin ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Hexadecimal" :
+                window [ "result" ].update ( dec2hex ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Decimal" :
+                window [ "result" ].update ( values [ "sc" ] )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Octal" :
+                window [ "result" ].update ( dec2oct ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+        if values [ "input" ] == "Binario" :
+            if values [ "output" ] == "Decimal" :
+                window [ "result" ].update ( bin2dec ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Hexadecimal" :
+                window [ "result" ].update ( bin2hex ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Binario" :
+                window [ "result" ].update ( values [ "sc" ] )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Octal" :
+                window [ "result" ].update ( bin2oct ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+        if values [ "input" ] == "Hexadecimal" :
+            if values [ "output" ] == "Decimal" :
+                window [ "result" ].update ( hex2dec ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Binario" :
+                window [ "result" ].update ( hex2bin ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Hexadecimal" :
+                window [ "result" ].update ( values [ "sc" ] )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Octal" :
+                window [ "result" ].update ( hex2oct ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+        if values [ "input" ] == "Octal" :
+            if values [ "output" ] == "Decimal" :
+                window [ "result" ].update ( oct2dec ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Binario" :
+                window [ "result" ].update ( oct2bin ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Hexadecimal" :
+                window [ "result" ].update ( oct2hex ( values [ "sc" ] ) )
+                window [ "#inp" ].update ( values [ "sc" ] )
+            if values [ "output" ] == "Octal" :
+                window [ "result" ].update ( values [ "sc" ] )
+                window [ "#inp" ].update ( values [ "sc" ] )
+    elif event == "Limpiar" :
+        window [ "result" ].update ( "" )
+        window [ "#inp" ].update ( "" )
 
-window.close()
-
+window.close ( )
